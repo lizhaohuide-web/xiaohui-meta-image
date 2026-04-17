@@ -1,0 +1,601 @@
+# 赛道知识库（平台 × 垂类最佳实践矩阵）
+#
+# 格式说明：
+#   每个赛道用 YAML 结构化，方便 Agent 程序化读取。
+#   verified: true = 实际跑通验证过 | false = 知识库理论推导
+#   当 verified: false 时，生成的流水线应自动加 disclaimer:
+#   「⚠️ 该赛道为知识库推导，未经实际验证，建议先跑测试」
+#
+# 新增赛道时按此模板扩展，保持格式统一。
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 小红书赛道
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+xiaohongshu-parenting:
+  platform: 小红书
+  vertical: 育儿
+  verified: true
+  audience: 25-35岁新手妈妈，焦虑型搜索决策
+  formula: 痛点场景 + 具体方案 + 情感共鸣
+  copy_style: 闺蜜口吻，真实体验，数据支撑，400-800字
+  image_spec:
+    width: 1075
+    height: 1440
+    ratio: "3:4"
+    style: 日系Q版或实拍，温馨色调
+  image_strategy: Nano Banana 2 中转 API，日系Q版，1075x1440
+  frequency: 日更或隔日更
+  topics:
+    - 月龄发育指南
+    - 辅食食谱
+    - 睡眠训练
+    - 早教游戏
+    - 母婴好物
+    - 避雷
+  monetization:
+    - 母婴带货
+    - 知识付费
+    - 品牌合作
+  tags:
+    - "#育儿经验"
+    - "#新手妈妈"
+    - "#宝宝发育"
+    - "#科学育儿"
+    - "#辅食添加"
+    - "#睡眠训练"
+  taboos:
+    - 严禁人名
+    - 严禁医疗建议
+    - 涉及健康必须加免责声明
+
+xiaohongshu-ai-tools:
+  platform: 小红书
+  vertical: AI工具/变现
+  verified: true
+  audience: AI小白、创业者、线下老板
+  formula: 核心利益点前置 + 工具对比 + 步骤化
+  copy_style: 口语化（像跟朋友聊天）、高信息密度、利益前置
+  image_spec:
+    width: 1080
+    height: 1440
+    ratio: "3:4"
+    style: Notion风格圆角卡片，白底高对比
+  image_strategy: HTML+CSS+Puppeteer 渲染（高密度文字），Nano 仅用于封面
+  frequency: 日更
+  topics:
+    - AI工具测评
+    - 变现案例
+    - 教程步骤
+    - Skill/Agent对比
+  monetization:
+    - 知识付费
+    - 私域引流
+    - SaaS推广
+  tags:
+    - "#AI工具"
+    - "#AI变现"
+    - "#效率提升"
+    - "#副业赚钱"
+    - "#ChatGPT"
+    - "#AI教程"
+    - "#打工人必备"
+  taboos:
+    - 不夸大效果
+    - 不用模糊描述（用数字代替"很好""很强大"）
+
+xiaohongshu-fashion:
+  platform: 小红书
+  vertical: 穿搭
+  verified: false
+  audience: 18-30岁女性，追求性价比和时尚感
+  formula: 痛点场景 + 搭配方案 + 平替推荐
+  copy_style: 闺蜜口吻，具体到单品和价格，强调"显瘦""显高"
+  image_spec:
+    width: 1075
+    height: 1440
+    ratio: "3:4"
+    style: 真人实拍或AI模特，干净背景
+  image_strategy: 实拍为主，AI做搭配组合图
+  frequency: 日更
+  topics:
+    - 微胖穿搭
+    - 小个子穿搭
+    - 通勤穿搭
+    - 季节穿搭
+    - 平替测评
+  monetization:
+    - 带货
+    - 品牌合作
+    - 私域穿搭咨询
+  tags:
+    - "#穿搭分享"
+    - "#微胖穿搭"
+    - "#小个子穿搭"
+    - "#通勤穿搭"
+    - "#平替推荐"
+  taboos:
+    - 不贬低其他身材
+    - 不虚假标价
+
+xiaohongshu-food:
+  platform: 小红书
+  vertical: 美食
+  verified: false
+  audience: 18-35岁，喜欢做饭/探店的年轻人
+  formula: 诱人成品图 + 简单步骤 + 失败避雷
+  copy_style: 轻松活泼，步骤清晰，强调"零失败""有手就会"
+  image_spec:
+    width: 1075
+    height: 1440
+    ratio: "3:4"
+    style: 高饱和度美食实拍，暖色调
+  image_strategy: 实拍为主，AI辅助做菜品美化
+  frequency: 日更
+  topics:
+    - 快手菜
+    - 烘焙教程
+    - 探店测评
+    - 食材科普
+    - 减脂餐
+  monetization:
+    - 品牌合作
+    - 带货
+    - 私域食谱
+  tags:
+    - "#美食教程"
+    - "#快手菜"
+    - "#烘焙"
+    - "#减脂餐"
+    - "#零失败"
+  taboos:
+    - 不虚假宣传食材功效
+    - 涉及过敏源需标注
+
+xiaohongshu-pet:
+  platform: 小红书
+  vertical: 宠物
+  verified: false
+  audience: 18-35岁养宠人群，把宠物当孩子养
+  formula: 萌宠瞬间 + 养宠知识 + 情感共鸣
+  copy_style: 拟人化口吻，温暖有趣，300-600字
+  image_spec:
+    width: 1075
+    height: 1440
+    ratio: "3:4"
+    style: 宠物特写，明亮自然光，温馨色调
+  image_strategy: 实拍为主，AI辅助做宠物漫画头像
+  frequency: 日更
+  topics:
+    - 品种科普
+    - 喂养指南
+    - 行为训练
+    - 宠物好物
+    - 萌宠日常
+  monetization:
+    - 宠物带货
+    - 品牌合作
+    - 宠物保险推广
+  tags:
+    - "#宠物日常"
+    - "#猫咪"
+    - "#狗狗"
+    - "#养宠知识"
+    - "#宠物好物"
+    - "#萌宠"
+  taboos:
+    - 不鼓励弃养
+    - 不推荐不当喂养方式
+
+xiaohongshu-fitness:
+  platform: 小红书
+  vertical: 健身
+  verified: false
+  audience: 18-40岁，减脂/增肌需求人群
+  formula: 效果对比 + 具体计划 + 打卡激励
+  copy_style: 教练口吻，专业但不枯燥，数据支撑
+  image_spec:
+    width: 1075
+    height: 1440
+    ratio: "3:4"
+    style: 对比图/动作分解图，运动风格
+  image_strategy: 实拍为主，AI做动作分解示意图
+  frequency: 日更
+  topics:
+    - 居家训练
+    - 减脂餐
+    - 增肌食谱
+    - 体态矫正
+    - 运动装备
+  monetization:
+    - 健身课程
+    - 运动补剂带货
+    - 私教引流
+  tags:
+    - "#健身打卡"
+    - "#减脂"
+    - "#居家训练"
+    - "#健身餐"
+    - "#体态矫正"
+  taboos:
+    - 不鼓励过度节食
+    - 不承诺具体减重数值
+
+xiaohongshu-career:
+  platform: 小红书
+  vertical: 职场
+  verified: false
+  audience: 22-35岁职场新人/中层，焦虑型成长需求
+  formula: 职场痛点 + 实用方法 + 个人经历
+  copy_style: 过来人口吻，干货密集，有共鸣感
+  image_spec:
+    width: 1075
+    height: 1440
+    ratio: "3:4"
+    style: Notion风格卡片，干净排版
+  image_strategy: HTML+CSS+Puppeteer 渲染信息卡片
+  frequency: 日更或隔日更
+  topics:
+    - 面试技巧
+    - 升职加薪
+    - 职场沟通
+    - 时间管理
+    - 副业探索
+  monetization:
+    - 职场课程
+    - 简历优化服务
+    - 付费社群
+  tags:
+    - "#职场干货"
+    - "#面试技巧"
+    - "#升职加薪"
+    - "#时间管理"
+    - "#副业"
+  taboos:
+    - 不贩卖焦虑
+    - 不虚假承诺收入
+
+xiaohongshu-travel:
+  platform: 小红书
+  vertical: 旅行
+  verified: false
+  audience: 20-40岁，喜欢旅游探索的年轻人
+  formula: 美景实拍 + 实用攻略 + 费用清单
+  copy_style: 攻略型，具体到交通/住宿/路线/花费
+  image_spec:
+    width: 1075
+    height: 1440
+    ratio: "3:4"
+    style: 风景实拍，高饱和度，ins风
+  image_strategy: 实拍为主，AI做路线图/行程规划图
+  frequency: 周更2-3篇
+  topics:
+    - 城市攻略
+    - 小众目的地
+    - 穷游攻略
+    - 美食探店
+    - 拍照机位
+  monetization:
+    - 旅游带货
+    - 定制游服务
+    - 酒店/机票推广
+  tags:
+    - "#旅行攻略"
+    - "#小众旅行地"
+    - "#穷游"
+    - "#周末去哪儿"
+    - "#拍照机位"
+  taboos:
+    - 不虚构行程
+    - 价格信息需时效标注
+
+xiaohongshu-digital:
+  platform: 小红书
+  vertical: 数码
+  verified: false
+  audience: 18-35岁男性为主，科技爱好者
+  formula: 产品测评 + 参数对比 + 购买建议
+  copy_style: 专业客观，数据说话，不吹不黑
+  image_spec:
+    width: 1075
+    height: 1440
+    ratio: "3:4"
+    style: 产品实拍/渲染图，暗色调科技风
+  image_strategy: 实拍为主，AI做参数对比卡片
+  frequency: 周更2-3篇
+  topics:
+    - 手机测评
+    - 耳机对比
+    - 智能家居
+    - 数码好物
+    - 性价比推荐
+  monetization:
+    - 带货佣金
+    - 品牌合作
+    - 私域咨询
+  tags:
+    - "#数码测评"
+    - "#手机推荐"
+    - "#耳机测评"
+    - "#智能家居"
+    - "#性价比"
+  taboos:
+    - 不恰饭不标注
+    - 参数必须准确可查证
+
+xiaohongshu-home:
+  platform: 小红书
+  vertical: 家居
+  verified: false
+  audience: 25-40岁，新房装修/租房改造人群
+  formula: 改造前后对比 + 好物清单 + 避坑指南
+  copy_style: 真实体验型，具体到品牌/价格/购买渠道
+  image_spec:
+    width: 1075
+    height: 1440
+    ratio: "3:4"
+    style: 实拍改造对比，温馨风格
+  image_strategy: 实拍为主，AI做改造前后对比图
+  frequency: 周更2-3篇
+  topics:
+    - 房间改造
+    - 收纳技巧
+    - 家具推荐
+    - 软装搭配
+    - 装修避坑
+  monetization:
+    - 家居带货
+    - 品牌合作
+    - 设计咨询
+  tags:
+    - "#家居改造"
+    - "#收纳技巧"
+    - "#租房改造"
+    - "#软装搭配"
+    - "#装修避坑"
+  taboos:
+    - 价格需实时更新
+    - 不虚假改造效果
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 公众号赛道
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+wechat-metaphysics:
+  platform: 公众号
+  vertical: 玄学命理
+  verified: true
+  audience: 35-60岁，对命理/风水/佛教文化感兴趣的中老年群体
+  formula: 悬念标题 + 命理知识 + 运势解读 + 行动建议
+  copy_style: 专业但有温度，引经据典，3000-5000字长文
+  image_spec:
+    width: 900
+    height: 383
+    ratio: "21:9"
+    style: 传统中国风，水墨/卦象/八字排盘元素
+  image_strategy: Nano Banana 2，中国风，16:9，正文智能章节配图
+  frequency: 日更（Cron 23:00自动发布草稿箱）
+  topics:
+    - 八字运势
+    - 风水布局
+    - 生肖配对
+    - 流年运程
+    - 命理知识科普
+  monetization:
+    - 付费测算
+    - 私域咨询
+    - 课程销售
+  tags: []  # 公众号无标签，依赖标题关键词
+  publish_method: 浏览器模拟登录绕过IPv6白名单限制，自动发布到草稿箱
+  taboos:
+    - 不做具体预言
+    - 不涉及封建迷信红线话题
+
+wechat-business-tech:
+  platform: 公众号
+  vertical: 商业/科技
+  verified: false
+  audience: 25-45岁职场人、创业者、科技爱好者
+  formula: 热点切入 + 深度分析 + 独家观点
+  copy_style: 专业深度，逻辑严密，5000-8000字长文
+  image_spec:
+    width: 900
+    height: 383
+    ratio: "21:9"
+    style: 信息图表，数据可视化
+  image_strategy: HTML渲染数据图表 + Nano封面
+  frequency: 周更2-3篇
+  topics:
+    - 行业分析
+    - 公司深度
+    - 技术解读
+    - 商业趋势
+  monetization:
+    - 付费订阅
+    - 广告
+    - 知识星球
+  tags: []
+  taboos:
+    - 数据必须有出处
+    - 不做无依据预测
+
+wechat-education:
+  platform: 公众号
+  vertical: 教育/成长
+  verified: false
+  audience: 25-45岁家长、终身学习者
+  formula: 教育理念 + 实操方法 + 真实案例
+  copy_style: 专家+朋友双重口吻，有温度有深度，3000-5000字
+  image_spec:
+    width: 900
+    height: 383
+    ratio: "21:9"
+    style: 教育风格，清新色调
+  image_strategy: Nano Banana 2，教育主题插画风格
+  frequency: 周更2篇
+  topics:
+    - 育儿教育
+    - 学习方法
+    - 个人成长
+    - 心理学
+    - 时间管理
+  monetization:
+    - 付费课程
+    - 知识星球
+    - 图书推广
+  tags: []
+  taboos:
+    - 不贩卖教育焦虑
+    - 不承诺学习效果
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 视频号赛道
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+shipinhao-emotional:
+  platform: 视频号
+  vertical: 中老年情感
+  verified: false
+  audience: 45-65岁，情感需求强，喜欢共鸣和转发
+  formula: 情感共鸣开场 + 人生感悟 + 金句结尾
+  copy_style: 温暖、接地气、有共鸣，短句为主
+  image_spec:
+    width: 1080
+    height: 1920
+    ratio: "9:16"
+    style: 温暖色调，风景/家庭/文字卡片
+  image_strategy: 视频为主，AI做金句卡片封面
+  frequency: 日更
+  topics:
+    - 亲情故事
+    - 人生感悟
+    - 健康养生
+    - 退休后生活
+    - 子女关系
+  monetization:
+    - 直播带货
+    - 私域社群
+    - 课程
+  tags: []
+  taboos:
+    - 不消费老年人情感
+    - 不推荐未验证保健品
+
+shipinhao-knowledge:
+  platform: 视频号
+  vertical: 知识口播
+  verified: false
+  audience: 35-60岁，喜欢深度内容
+  formula: 观点输出 + 案例支撑 + 金句结尾
+  copy_style: 沉稳专业，短句为主，有分量感
+  image_spec:
+    width: 1080
+    height: 1920
+    ratio: "9:16"
+    style: 真人出镜，简洁背景
+  image_strategy: 真人出镜为主，AI做知识点卡片
+  frequency: 日更
+  topics:
+    - 商业思维
+    - 人生感悟
+    - 历史解读
+    - 文化科普
+  monetization:
+    - 知识付费
+    - 私域社群
+    - 直播带货
+  tags: []
+  taboos:
+    - 不传播未经核实信息
+    - 历史内容需标注出处
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 抖音赛道
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+douyin-knowledge-talk:
+  platform: 抖音
+  vertical: 知识口播
+  verified: false
+  audience: 18-40岁，碎片化学习需求
+  formula: 反常识开场 + 干货输出 + 互动结尾
+  copy_style: 快节奏、高密度、口语化，1-3分钟口播稿
+  image_spec:
+    width: 1080
+    height: 1920
+    ratio: "9:16"
+    style: 大字报/信息卡片风格
+  image_strategy: 视频为主，AI做知识点卡片封面
+  frequency: 日更或一日多更
+  topics:
+    - 行业揭秘
+    - 思维模型
+    - 实用技巧
+    - 热点解读
+  monetization:
+    - 知识付费
+    - 直播打赏
+    - 广告
+  tags: []
+  taboos:
+    - 不传播未验证信息
+    - 不做标题党
+
+douyin-pet:
+  platform: 抖音
+  vertical: 宠物
+  verified: false
+  audience: 全年龄段宠物爱好者
+  formula: 萌宠搞笑瞬间 + 配音/字幕 + 情感共鸣
+  copy_style: 短平快，字幕为主，15-60秒视频
+  image_spec:
+    width: 1080
+    height: 1920
+    ratio: "9:16"
+    style: 宠物特写，趣味字幕
+  image_strategy: 视频为主，AI做萌宠表情包封面
+  frequency: 日更或一日多更
+  topics:
+    - 萌宠搞笑
+    - 养宠知识
+    - 品种科普
+    - 宠物好物推荐
+  monetization:
+    - 宠物带货
+    - 直播打赏
+    - 品牌合作
+  tags: []
+  taboos:
+    - 不虐待动物博眼球
+    - 不鼓励冲动养宠
+
+douyin-fitness:
+  platform: 抖音
+  vertical: 健身
+  verified: false
+  audience: 18-40岁，减脂增肌需求人群
+  formula: 动作演示 + 效果展示 + 跟练引导
+  copy_style: 教练口吻，节奏快，指令清晰
+  image_spec:
+    width: 1080
+    height: 1920
+    ratio: "9:16"
+    style: 真人示范，动作分解
+  image_strategy: 视频为主，AI做动作要点卡片
+  frequency: 日更
+  topics:
+    - 居家跟练
+    - 减脂操
+    - 增肌训练
+    - 体态矫正
+    - 饮食搭配
+  monetization:
+    - 健身课程
+    - 运动补剂带货
+    - 私教引流
+  tags: []
+  taboos:
+    - 不鼓励过度训练
+    - 动作需标注安全提示

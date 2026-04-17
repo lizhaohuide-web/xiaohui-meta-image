@@ -195,12 +195,16 @@ done
 
 ### Step 1.1: 加载赛道知识库
 
-读取 `references/track-knowledge-base.md`，匹配 `平台 × 垂类` 组合。
+读取 `references/track-knowledge-base.yaml`（YAML 结构化格式），匹配 `平台 × 垂类` 组合。
 
 **匹配逻辑**：
-1. 精确匹配（如"小红书 × 育儿"）→ 直接使用
+1. 精确匹配（如 `xiaohongshu-parenting`）→ 直接使用
 2. 平台匹配 + 垂类近似 → 使用平台默认值 + 提示用户调整
-3. 完全未匹配 → 基于已有赛道推理 + 标注"新赛道，需手动校准"
+3. 完全未匹配 → 基于已有赛道推理 + 标注「⚠️ 新赛道，未经验证，建议先跑测试」
+
+**验证状态处理**：
+- `verified: true` → 正常生成
+- `verified: false` → 生成时在 SKILL.md 头部加 disclaimer：「⚠️ 该赛道为知识库推导，未经实际验证，首次使用建议完整跑一遍 Phase 2.5 测试」
 
 ### Step 1.2: 提取最佳实践
 
@@ -274,6 +278,17 @@ triggers:
 ## Step 1: 选题
 
 {从知识库提取的选题方向，生成 10 个候选}
+
+**实际采集方式**（优先使用脚本，不要空想）：
+```bash
+# 按赛道自动采集
+python3 scripts/topic_collector.py --track {赛道英文名} --limit 10
+
+# 输出 JSON 给后续流程消费
+python3 scripts/topic_collector.py --track {赛道英文名} --format json --output /tmp/topics.json
+```
+脚本位置: `~/.hermes/skills/xiaohui-meta-image/scripts/topic_collector.py`
+数据源: 6551 API (Twitter/X + OpenNews)，需要 `TWITTER_TOKEN` 和 `OPENNEWS_TOKEN` 环境变量。
 
 ## Step 2: 文案生成
 
@@ -428,21 +443,23 @@ triggers:
 
 ```
 优先级 1: image_generate 工具（FLUX 2 Pro）
+  → Agent 直接调用 image_generate 工具
+  → 失败不超过 2 次，直接降级
   ↓ 失败
-优先级 2: Nano Banana 2 中转 API
-  API: new.apipudding.com/v1/chat/completions
-  模型: Nano banana 2
-  ↓ 失败（或环境中无 Pillow）
-优先级 3: Python Pillow 排版（保底）
-  注意: Pillow 在 sandbox 中可能未安装
-  正确做法: terminal("pip install Pillow -q") 先安装，再 python3 -c "..."
-  不能: execute_code 中 import PIL（sandbox 环境不持久）
+优先级 2: pipeline_image_gen.py（封装了 Nano + Pillow 完整降级链）
+  → terminal: python3 scripts/pipeline_image_gen.py --prompt "..." --image /tmp/out.png
+  → 内部自动处理: Nano Banana 2 API → Pillow 保底
+  → 支持批量: --batchfile batch.json --jobs 3
+  → 支持自定义尺寸: --width 1080 --height 1920
 ```
 
+**脚本位置**: `~/.hermes/skills/xiaohui-meta-image/scripts/pipeline_image_gen.py`
+
 **关键经验教训**：
-- execute_code 的 Python 环境与 terminal 的 Python 环境不同，Pillow 可能只在 terminal 中可用
-- 推荐优先用 terminal + python3 -c 执行 Pillow 生图，避免依赖问题
-- image_generate 失败时不要重试超过 2 次，直接降级
+- execute_code 的 Python 环境与 terminal 的 Python 环境不同，推荐用 terminal 执行脚本
+- image_generate 失败时不要重试超过 2 次，直接降级到脚本
+- Nano API 模型名必须是 `[官逆C]Nano banana 2`，不是 `nano-banana-2`
+- 脚本已内置 requests 自动安装、跨平台图片缩放（macOS sips / Linux Pillow）
 
 ### Step 2.5.2: 用户审核
 
@@ -466,27 +483,36 @@ triggers:
 
 **用户反馈自动记录，下次生成同赛道时自动应用。**
 
-**记录格式**（存入 `~/.hermes/skills/xiaohui-meta-image/feedback-log.md`）：
+**记录格式**（存入 `~/.hermes/skills/xiaohui-meta-image/feedback-log.json`）：
 
-```markdown
-## 反馈记录
-
-| 日期 | 赛道 | 用户反馈 | 调整内容 | 应用状态 |
-|------|------|---------|---------|---------|
-| 2026-04-16 | 小红书×穿搭 | "文案太官方了" | style-guide 语气改为闺蜜口吻 | ✅ 已应用到该赛道 |
-| 2026-04-16 | 公众号×玄学 | "配图风格太暗" | image-prompt 色调调亮 | ✅ 已应用 |
+```json
+[
+  {
+    "date": "2026-04-16",
+    "track": "xiaohongshu-fashion",
+    "feedback": "文案太官方了",
+    "adjustment": "style-guide 语气改为闺蜜口吻",
+    "scope": "track",
+    "applied": true
+  }
+]
 ```
 
+**scope 字段说明**：
+- `"track"` → 仅影响该赛道后续生成
+- `"global"` → 影响所有赛道后续生成（用户说"这个调整不错"时标记）
+
 **记忆应用规则**：
-1. 生成新流水线前，先读取 `feedback-log.md`
-2. 如果同赛道有历史反馈，自动应用到新生成的文件中
-3. 用户说"这个调整不错"→ 标记为"全局应用"，影响所有后续生成
-4. 用户说"这个只对我有效"→ 标记为"局部应用"，只影响当前用户
+1. 生成新流水线前，先读取 `feedback-log.json`
+2. 如果同赛道有历史反馈（按 `track` 字段匹配），自动应用到新生成的文件中
+3. 如果有 `scope: "global"` 的反馈，应用到所有后续生成
+4. 用户说"这个调整不错"→ 标记 scope 为 `"global"`
+5. 用户说"这个只对我有效"→ 保持 scope 为 `"track"`
 
 **实现方式**：
-- 在 Phase 2.2 生成 SKILL.md 时，先检查 feedback-log.md
-- 如果有同赛道反馈，将调整内容注入到生成的模板中
-- 生成完成后，更新 feedback-log.md 的"应用状态"
+- 在 Phase 2.2 生成 SKILL.md 时，先检查 feedback-log.json
+- 如果有匹配反馈，将调整内容注入到生成的模板中
+- 生成完成后，追加新条目到 feedback-log.json
 
 ---
 
@@ -595,22 +621,34 @@ cronjob action=create
 1. 基于已有赛道推理最佳实践
 2. 生成流水线时标注"新赛道，需手动校准"
 3. 用户确认后，将新赛道追加到 `references/track-knowledge-base.md`
-4. 格式与已有赛道一致（维度表格）
+4. 格式与已有赛道一致，追加到 `references/track-knowledge-base.yaml`（保持 YAML 结构）
 
 ---
 
 ## 已有赛道速查
 
-| 平台 | 垂类 | Skill 名 | 状态 |
-|------|------|---------|------|
+| 平台 | 垂类 | Skill 名 | 验证状态 |
+|------|------|---------|---------|
 | 小红书 | 育儿 | xiaohongshu-parenting | ✅ 已验证 |
 | 小红书 | AI 工具/变现 | xiaohongshu-ai-tools | ✅ 已验证 |
 | 公众号 | 玄学命理 | wechat-metaphysics | ✅ 已验证 |
-| 视频号 | 中老年情感 | shipinhao-emotional | ✅ 知识库 |
-| 抖音 | 知识口播 | douyin-knowledge-talk | ✅ 知识库 |
-| 小红书 | 美食 | xiaohongshu-food | ✅ 知识库 |
-| 小红书 | 穿搭 | xiaohongshu-fashion | ✅ 知识库 |
-| 公众号 | 商业/科技 | wechat-business-tech | ✅ 知识库 |
+| 小红书 | 穿搭 | xiaohongshu-fashion | 🔶 知识库理论 |
+| 小红书 | 美食 | xiaohongshu-food | 🔶 知识库理论 |
+| 小红书 | 宠物 | xiaohongshu-pet | 🔶 知识库理论 |
+| 小红书 | 健身 | xiaohongshu-fitness | 🔶 知识库理论 |
+| 小红书 | 职场 | xiaohongshu-career | 🔶 知识库理论 |
+| 小红书 | 旅行 | xiaohongshu-travel | 🔶 知识库理论 |
+| 小红书 | 数码 | xiaohongshu-digital | 🔶 知识库理论 |
+| 小红书 | 家居 | xiaohongshu-home | 🔶 知识库理论 |
+| 公众号 | 商业/科技 | wechat-business-tech | 🔶 知识库理论 |
+| 公众号 | 教育/成长 | wechat-education | 🔶 知识库理论 |
+| 视频号 | 中老年情感 | shipinhao-emotional | 🔶 知识库理论 |
+| 视频号 | 知识口播 | shipinhao-knowledge | 🔶 知识库理论 |
+| 抖音 | 知识口播 | douyin-knowledge-talk | 🔶 知识库理论 |
+| 抖音 | 宠物 | douyin-pet | 🔶 知识库理论 |
+| 抖音 | 健身 | douyin-fitness | 🔶 知识库理论 |
+
+> 当某赛道首次完整跑通 Phase 2.5 测试后，将 YAML 中 `verified` 改为 `true`，速查表更新为 ✅。
 
 ---
 
