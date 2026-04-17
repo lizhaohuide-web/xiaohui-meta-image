@@ -82,3 +82,10 @@
 1. 生成新流水线前，先读取 `feedback-log.json`
 2. 同赛道有历史反馈 → 自动应用
 3. `scope: "global"` 的反馈 → 应用到所有后续生成
+
+**归档规则**：
+- 超过 90 天的 `track` scope 反馈 → 自动归档到 `feedback-archive.json`
+- `global` scope 反馈永久保留，不归档
+- 手动归档: `python3 scripts/feedback_archive.py`
+- 预览模式: `python3 scripts/feedback_archive.py --dry-run`
+- 自定义天数: `python3 scripts/feedback_archive.py --days 60`

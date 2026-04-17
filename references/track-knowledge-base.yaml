@@ -64,6 +64,16 @@ xiaohongshu-parenting:
     bad:
       - title: "必看！宝宝发育全攻略"
         reason: "标题太泛，没有痛点场景，像教科书不像闺蜜分享"
+  benchmarks:
+    - name: "年糕妈妈"
+      followers: "2000万+"
+      style: "专业育儿知识+情感共鸣，图文为主，强调科学育儿与亲子互动"
+    - name: "丁香妈妈"
+      followers: "800万+"
+      style: "医学背景权威科普，数据支撑，擅长辟谣和避坑指南"
+    - name: "CC爸妈"
+      followers: "200万+"
+      style: "父母视角育儿日常，教育理念输出，图文+视频结合"
 
 xiaohongshu-ai-tools:
   platform: 小红书
@@ -107,6 +117,16 @@ xiaohongshu-ai-tools:
     bad:
       - title: "AI工具太强大了！"
         reason: "模糊描述，没有具体利益点和数字，用户看完不知道能干嘛"
+  benchmarks:
+    - name: "花生酱先生"
+      followers: "100万+"
+      style: "AI工具测评+实操教程，强调变现路径，信息密度高"
+    - name: "AI进化论-花生"
+      followers: "80万+"
+      style: "AI工具横评+使用场景，面向小白用户，步骤清晰"
+    - name: "林骥"
+      followers: "50万+"
+      style: "数据分析+AI效率工具，技术流风格，干货密集"
 
 xiaohongshu-fashion:
   platform: 小红书
@@ -151,6 +171,16 @@ xiaohongshu-fashion:
     bad:
       - title: "今日穿搭分享"
         reason: "没有痛点没有场景，像发朋友圈不像做内容"
+  benchmarks:
+    - name: "程晓玥"
+      followers: "500万+"
+      style: "高质感穿搭博主，兼顾平价和轻奢，真人实拍出片率高"
+    - name: "是盐盐呀"
+      followers: "200万+"
+      style: "微胖穿搭代表，平价单品为主，强调显瘦搭配公式"
+    - name: "Savislook"
+      followers: "300万+"
+      style: "极简风穿搭，高级感配色，氛围感出片"
 
 xiaohongshu-food:
   platform: 小红书
@@ -195,6 +225,16 @@ xiaohongshu-food:
     bad:
       - title: "教大家做一道美味佳肴"
         reason: "标题像食堂通知，没有场景没有诱惑力"
+  benchmarks:
+    - name: "日食记"
+      followers: "500万+"
+      style: "治愈系美食视频，画面电影感，强调仪式感和氛围"
+    - name: "菜菜美食日记"
+      followers: "800万+"
+      style: "家常菜教程为主，步骤详细零失败，接地气风格"
+    - name: "曼食慢语"
+      followers: "300万+"
+      style: "中西融合料理教学，讲解专业细致，适合进阶厨房爱好者"
 
 xiaohongshu-pet:
   platform: 小红书
@@ -239,6 +279,16 @@ xiaohongshu-pet:
     bad:
       - title: "我家猫猫好可爱"
         reason: "自嗨型标题，没有信息增量，用户不点"
+  benchmarks:
+    - name: "花花与三猫CatLive"
+      followers: "500万+"
+      style: "多猫家庭日常，拟人化叙事，搞笑+治愈双线并行"
+    - name: "柿子菌meow"
+      followers: "300万+"
+      style: "猫咪知识科普+萌宠日常，专业养猫干货，图文精致"
+    - name: "国民老岳父公"
+      followers: "200万+"
+      style: "宠物搞笑剧情，人宠互动，短视频节奏感强"
 
 xiaohongshu-fitness:
   platform: 小红书
@@ -283,6 +333,16 @@ xiaohongshu-fitness:
     bad:
       - title: "7天暴瘦20斤训练计划"
         reason: "虚假承诺，平台会限流，也不负责任"
+  benchmarks:
+    - name: "帕梅拉PamelaReif"
+      followers: "1000万+"
+      style: "无解说跟练视频，高强度节奏，全球化健身IP"
+    - name: "周六野Zoey"
+      followers: "800万+"
+      style: "居家跟练为主，动作分解清晰，适合新手入门"
+    - name: "欧阳春晓"
+      followers: "500万+"
+      style: "体态矫正+塑形，针对女性用户，科普+实操结合"
 
 xiaohongshu-career:
   platform: 小红书
@@ -327,6 +387,16 @@ xiaohongshu-career:
     bad:
       - title: "职场干货分享"
         reason: "标题零信息量，像PPT封面不像爆款笔记"
+  benchmarks:
+    - name: "秋叶大叔"
+      followers: "300万+"
+      style: "职场技能+个人IP打造，PPT/效率工具教学，干货实用"
+    - name: "崔璀"
+      followers: "200万+"
+      style: "职场女性成长，管理沟通技巧，温暖但有力度"
+    - name: "脱不花"
+      followers: "500万+"
+      style: "得到联合创始人，职场方法论输出，逻辑清晰金句多"
 
 xiaohongshu-travel:
   platform: 小红书
@@ -371,6 +441,16 @@ xiaohongshu-travel:
     bad:
       - title: "重庆旅游攻略"
         reason: "没有差异化，搜索结果里一万篇同名笔记"
+  benchmarks:
+    - name: "房琪kiki"
+      followers: "1500万+"
+      style: "文案诗意+视觉大片，旅行文化解读，情绪共鸣强"
+    - name: "小小莎老师"
+      followers: "800万+"
+      style: "实用攻略型旅行博主，费用明细+路线规划，信息密度高"
+    - name: "旅行丨其实很简单"
+      followers: "200万+"
+      style: "穷游路线分享，预算控制攻略，真实体验感强"
 
 xiaohongshu-digital:
   platform: 小红书
@@ -414,6 +494,16 @@ xiaohongshu-digital:
     bad:
       - title: "这款耳机太好用了推荐！"
         reason: "软广感拉满，没有测评数据，用户不信"
+  benchmarks:
+    - name: "钟文泽"
+      followers: "500万+"
+      style: "专业数码测评，参数横评严谨，幽默表达降低门槛"
+    - name: "影视飓风"
+      followers: "800万+"
+      style: "影像器材+数码深度测评，制作精良，科技审美标杆"
+    - name: "先看测评"
+      followers: "300万+"
+      style: "消费电子横评，数据可视化对比，客观中立风格"
 
 xiaohongshu-home:
   platform: 小红书
@@ -457,6 +547,16 @@ xiaohongshu-home:
     bad:
       - title: "我的家居分享"
         reason: "没有改造故事没有具体金额，像发朋友圈"
+  benchmarks:
+    - name: "住范儿"
+      followers: "300万+"
+      style: "装修避坑指南，硬核干货型，价格透明信息密集"
+    - name: "菠萝斑马居住指南"
+      followers: "200万+"
+      style: "家居审美提升，软装搭配灵感，兼顾实用与颜值"
+    - name: "蜜桃太太"
+      followers: "100万+"
+      style: "小户型收纳改造，预算友好，前后对比冲击力强"
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 公众号赛道
@@ -500,6 +600,16 @@ wechat-metaphysics:
     bad:
       - title: "十二生肖运势大全"
         reason: "标题太平，没有悬念，不如聚焦到具体几个生肖制造好奇心"
+  benchmarks:
+    - name: "陶白白Sensei"
+      followers: "2000万+"
+      style: "星座命理深度解读，年轻化表达，情感+运势结合"
+    - name: "易学风水智慧"
+      followers: "100万+"
+      style: "传统风水布局科普，长文深度解析，引经据典有权威感"
+    - name: "灵机文化"
+      followers: "500万+"
+      style: "综合命理平台号，八字/紫微/风水全覆盖，日更运势推送"
 
 wechat-business-tech:
   platform: 公众号
@@ -537,6 +647,16 @@ wechat-business-tech:
     bad:
       - title: "AI行业最新动态"
         reason: "像新闻简报标题，没有独家视角和观点锐度"
+  benchmarks:
+    - name: "虎嗅"
+      followers: "1000万+"
+      style: "商业科技深度报道，观点犀利，行业一手信息"
+    - name: "36氪"
+      followers: "1500万+"
+      style: "创投科技新闻，数据驱动分析，快速跟进行业热点"
+    - name: "刘润"
+      followers: "500万+"
+      style: "商业洞察+方法论输出，案例丰富，通俗易懂接地气"
 
 wechat-education:
   platform: 公众号
@@ -575,6 +695,16 @@ wechat-education:
     bad:
       - title: "如何培养优秀的孩子"
         reason: "太泛太教科书，没有具体故事和冲突感"
+  benchmarks:
+    - name: "凯叔讲故事"
+      followers: "3000万+"
+      style: "儿童教育+亲子阅读，故事化表达，品牌IP强"
+    - name: "十点读书"
+      followers: "3500万+"
+      style: "个人成长+终身学习，情感+知识结合，睡前阅读场景"
+    - name: "李月亮"
+      followers: "800万+"
+      style: "教育观察+家庭关系深度文，故事感强，引发共鸣和讨论"
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 视频号赛道
@@ -620,6 +750,16 @@ shipinhao-emotional:
   # ⚠️ quality_tier: B 说明：
   # 视频号赛道以视频为主，纯图文模式的生图策略和文案结构需要实际验证。
   # 口播稿的节奏感和配乐选择无法通过知识库完全覆盖。
+  benchmarks:
+    - name: "张德芬空间"
+      followers: "500万+"
+      style: "心灵成长+情感疗愈，中年女性受众，温暖治愈风格"
+    - name: "一禅小和尚"
+      followers: "3000万+"
+      style: "动画IP+人生感悟，短小精悍，金句传播力强"
+    - name: "樊登读书"
+      followers: "2000万+"
+      style: "书籍解读+人生智慧，知识型情感内容，中老年受众广"
 
 shipinhao-knowledge:
   platform: 视频号
@@ -660,6 +800,16 @@ shipinhao-knowledge:
   # ⚠️ quality_tier: B 说明：
   # 知识口播高度依赖出镜人设和表达节奏，纯文字流水线只能覆盖选题+文案环节。
   # 视频剪辑、配乐、字幕样式需要人工把控。
+  benchmarks:
+    - name: "罗翔说刑法"
+      followers: "3000万+"
+      style: "法律知识口播标杆，幽默案例教学，深入浅出有人格魅力"
+    - name: "樊登"
+      followers: "2000万+"
+      style: "读书解读+商业思维，娓娓道来型表达，中年受众为主"
+    - name: "吴晓波频道"
+      followers: "800万+"
+      style: "财经商业深度解读，专栏作家风格，观点输出有深度"
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 抖音赛道
@@ -704,6 +854,16 @@ douyin-knowledge-talk:
   # ⚠️ quality_tier: B 说明：
   # 抖音口播的核心是前3秒留人率，这高度依赖表达方式和剪辑节奏。
   # 知识库只能覆盖选题+文案，投流策略和评论区运营需要额外经验。
+  benchmarks:
+    - name: "刘媛媛"
+      followers: "2000万+"
+      style: "励志知识口播，高能量表达，从北大学霸人设切入"
+    - name: "毕导"
+      followers: "1500万+"
+      style: "理工科趣味科普，实验+数据驱动，幽默感强"
+    - name: "秋叶大叔"
+      followers: "500万+"
+      style: "职场+效率知识口播，接地气表达，实操性强"
 
 douyin-pet:
   platform: 抖音
@@ -744,6 +904,16 @@ douyin-pet:
   # ⚠️ quality_tier: B 说明：
   # 抖音宠物赛道高度依赖真实视频素材，纯AI内容很难做出互动感。
   # 知识库可覆盖选题和配音文案，但视频拍摄和剪辑节奏需真人操作。
+  benchmarks:
+    - name: "会说话的刘二豆"
+      followers: "5000万+"
+      style: "猫咪拟人配音鼻祖，剧情化叙事，搞笑互动"
+    - name: "尿尿是只猫"
+      followers: "2000万+"
+      style: "猫咪日常+搞笑配音，节奏轻快，治愈感强"
+    - name: "金毛蛋黄"
+      followers: "3000万+"
+      style: "金毛狗狗日常，暖心故事路线，人宠情感共鸣"
 
 douyin-fitness:
   platform: 抖音
@@ -785,3 +955,13 @@ douyin-fitness:
   # ⚠️ quality_tier: B 说明：
   # 健身赛道核心是真人动作示范视频，纯文字/图片流水线覆盖度有限。
   # 知识库可覆盖选题+训练计划文案，但视频拍摄和后期需要人工。
+  benchmarks:
+    - name: "刘畊宏"
+      followers: "7000万+"
+      style: "直播跟练标杆，高能量带动，全民健身IP"
+    - name: "周六野Zoey"
+      followers: "1500万+"
+      style: "居家跟练+体态矫正，温柔教练风格，女性用户为主"
+    - name: "叔贵"
+      followers: "1000万+"
+      style: "增肌训练+健身知识科普，硬核专业风格，男性受众为主"
