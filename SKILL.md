@@ -28,7 +28,7 @@ triggers:
 
 | 文件 | 用途 | 何时读取 |
 |------|------|---------|
-| `references/track-knowledge-base.md` | 赛道知识库（18 个平台×垂类组合） | Phase 1 |
+| `references/track-knowledge-base.yaml` | 赛道知识库（18 个平台×垂类组合，YAML 结构化） | Phase 1 |
 | `references/asset-scan-mapping.md` | 资产扫描路径 + 分类映射表 + 推荐展示格式 | Phase 0 Step 0.1.5 |
 | `references/personalized-questions.md` | 按垂类个性化追问表 | Phase 0 Step 0.2.5 |
 | `references/skill-templates.md` | 生成 Skill 的所有模板 + 输出路径规则 | Phase 2 |
@@ -99,7 +99,7 @@ triggers:
 
 ### Step 1.1: 加载赛道知识库
 
-读取 `references/track-knowledge-base.md`，匹配 `平台 × 垂类` 组合。
+读取 `references/track-knowledge-base.yaml`，匹配 `平台 × 垂类` 组合。
 
 匹配逻辑：
 1. 精确匹配 → 直接使用
@@ -225,4 +225,4 @@ cronjob action=create
 遇到知识库中没有的 `平台 × 垂类` 组合时：
 1. 基于已有赛道推理最佳实践
 2. 生成时标注"新赛道，需手动校准"
-3. 用户确认后，追加到 `references/track-knowledge-base.md`
+3. 用户确认后，追加到 `references/track-knowledge-base.yaml`

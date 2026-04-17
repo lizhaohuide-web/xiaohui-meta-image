@@ -1,10 +1,16 @@
 # 赛道知识库（平台 × 垂类最佳实践矩阵）
 #
-# 格式说明：
-#   每个赛道用 YAML 结构化，方便 Agent 程序化读取。
+# 字段说明：
 #   verified: true = 实际跑通验证过 | false = 知识库理论推导
+#   quality_tier: A = 内容完整可直接用 | B = 骨架级需人工校准
 #   当 verified: false 时，生成的流水线应自动加 disclaimer:
 #   「⚠️ 该赛道为知识库推导，未经实际验证，建议先跑测试」
+#   quality_tier: B 时额外标注:
+#   「⚠️ 该赛道知识库为骨架级，文案风格和配图策略可能需要人工调整」
+#
+# examples 字段说明：
+#   good: 符合该赛道风格的正面示例（标题 + 文案开头）
+#   bad:  常见错误的反面示例 + 错误原因
 #
 # 新增赛道时按此模板扩展，保持格式统一。
 
@@ -18,6 +24,7 @@ xiaohongshu-parenting:
   platform: 小红书
   vertical: 育儿
   verified: true
+  quality_tier: A
   audience: 25-35岁新手妈妈，焦虑型搜索决策
   formula: 痛点场景 + 具体方案 + 情感共鸣
   copy_style: 闺蜜口吻，真实体验，数据支撑，400-800字
@@ -50,11 +57,19 @@ xiaohongshu-parenting:
     - 严禁人名
     - 严禁医疗建议
     - 涉及健康必须加免责声明
+  examples:
+    good:
+      - title: "宝宝6个月了还不会翻身？别急，3个动作帮他开窍"
+        opening: "我家崽6个月体检时，医生说翻身有点慢，当时真的急哭了😭 后来查了一堆资料，每天坚持做这3个小游戏，不到两周就翻了！"
+    bad:
+      - title: "必看！宝宝发育全攻略"
+        reason: "标题太泛，没有痛点场景，像教科书不像闺蜜分享"
 
 xiaohongshu-ai-tools:
   platform: 小红书
   vertical: AI工具/变现
   verified: true
+  quality_tier: A
   audience: AI小白、创业者、线下老板
   formula: 核心利益点前置 + 工具对比 + 步骤化
   copy_style: 口语化（像跟朋友聊天）、高信息密度、利益前置
@@ -85,11 +100,19 @@ xiaohongshu-ai-tools:
   taboos:
     - 不夸大效果
     - 不用模糊描述（用数字代替"很好""很强大"）
+  examples:
+    good:
+      - title: "用 Claude 帮我写了30条小红书，3天涨粉800+"
+        opening: "不是标题党，真实数据。上周试了个新玩法——让 Claude 当我的内容助手，从选题到文案一条龙，3天发了30条笔记，涨了837个粉。"
+    bad:
+      - title: "AI工具太强大了！"
+        reason: "模糊描述，没有具体利益点和数字，用户看完不知道能干嘛"
 
 xiaohongshu-fashion:
   platform: 小红书
   vertical: 穿搭
   verified: false
+  quality_tier: A
   audience: 18-30岁女性，追求性价比和时尚感
   formula: 痛点场景 + 搭配方案 + 平替推荐
   copy_style: 闺蜜口吻，具体到单品和价格，强调"显瘦""显高"
@@ -98,7 +121,7 @@ xiaohongshu-fashion:
     height: 1440
     ratio: "3:4"
     style: 真人实拍或AI模特，干净背景
-  image_strategy: 实拍为主，AI做搭配组合图
+  image_strategy: 实拍为主，AI做搭配组合图；纯AI可用Nano生成穿搭模特图
   frequency: 日更
   topics:
     - 微胖穿搭
@@ -116,14 +139,24 @@ xiaohongshu-fashion:
     - "#小个子穿搭"
     - "#通勤穿搭"
     - "#平替推荐"
+    - "#OOTD"
   taboos:
     - 不贬低其他身材
     - 不虚假标价
+    - 平替对比不侵权（不放正品logo）
+  examples:
+    good:
+      - title: "小腿粗的姐妹看过来！这3条裤子谁穿谁瘦10斤"
+        opening: "小腿粗星人的血泪史——试了不下50条裤子，终于找到这3条神裤！价格都在百元内，真的穿上秒变筷子腿，不信你看对比图👇"
+    bad:
+      - title: "今日穿搭分享"
+        reason: "没有痛点没有场景，像发朋友圈不像做内容"
 
 xiaohongshu-food:
   platform: 小红书
   vertical: 美食
   verified: false
+  quality_tier: A
   audience: 18-35岁，喜欢做饭/探店的年轻人
   formula: 诱人成品图 + 简单步骤 + 失败避雷
   copy_style: 轻松活泼，步骤清晰，强调"零失败""有手就会"
@@ -132,7 +165,7 @@ xiaohongshu-food:
     height: 1440
     ratio: "3:4"
     style: 高饱和度美食实拍，暖色调
-  image_strategy: 实拍为主，AI辅助做菜品美化
+  image_strategy: 实拍为主；纯AI可用Nano生成美食插画风格图
   frequency: 日更
   topics:
     - 快手菜
@@ -150,14 +183,24 @@ xiaohongshu-food:
     - "#烘焙"
     - "#减脂餐"
     - "#零失败"
+    - "#有手就会"
   taboos:
     - 不虚假宣传食材功效
     - 涉及过敏源需标注
+    - 食品安全相关必须严谨
+  examples:
+    good:
+      - title: "3块钱搞定一碗米其林级拌面，上班族救星！"
+        opening: "加班到9点回家不想做饭？这碗葱油拌面救了我无数个深夜🍜 3种调料+1把面，5分钟搞定，好吃到舔碗！"
+    bad:
+      - title: "教大家做一道美味佳肴"
+        reason: "标题像食堂通知，没有场景没有诱惑力"
 
 xiaohongshu-pet:
   platform: 小红书
   vertical: 宠物
   verified: false
+  quality_tier: A
   audience: 18-35岁养宠人群，把宠物当孩子养
   formula: 萌宠瞬间 + 养宠知识 + 情感共鸣
   copy_style: 拟人化口吻，温暖有趣，300-600字
@@ -166,7 +209,7 @@ xiaohongshu-pet:
     height: 1440
     ratio: "3:4"
     style: 宠物特写，明亮自然光，温馨色调
-  image_strategy: 实拍为主，AI辅助做宠物漫画头像
+  image_strategy: 实拍为主，AI辅助做宠物漫画头像；纯AI可用Nano生成Q版宠物
   frequency: 日更
   topics:
     - 品种科普
@@ -188,11 +231,20 @@ xiaohongshu-pet:
   taboos:
     - 不鼓励弃养
     - 不推荐不当喂养方式
+    - 医疗建议需标注"请咨询兽医"
+  examples:
+    good:
+      - title: "养猫第3年，我终于搞懂了它为什么半夜疯跑"
+        opening: "凌晨3点，又被我家橘子的跑酷吵醒了💀 查了一圈资料才知道，原来猫咪半夜发疯不是因为见鬼，是因为..."
+    bad:
+      - title: "我家猫猫好可爱"
+        reason: "自嗨型标题，没有信息增量，用户不点"
 
 xiaohongshu-fitness:
   platform: 小红书
   vertical: 健身
   verified: false
+  quality_tier: A
   audience: 18-40岁，减脂/增肌需求人群
   formula: 效果对比 + 具体计划 + 打卡激励
   copy_style: 教练口吻，专业但不枯燥，数据支撑
@@ -201,7 +253,7 @@ xiaohongshu-fitness:
     height: 1440
     ratio: "3:4"
     style: 对比图/动作分解图，运动风格
-  image_strategy: 实拍为主，AI做动作分解示意图
+  image_strategy: 实拍为主，AI做动作分解示意图；纯AI可用HTML渲染训练计划卡片
   frequency: 日更
   topics:
     - 居家训练
@@ -219,14 +271,24 @@ xiaohongshu-fitness:
     - "#居家训练"
     - "#健身餐"
     - "#体态矫正"
+    - "#增肌"
   taboos:
     - 不鼓励过度节食
-    - 不承诺具体减重数值
+    - 不承诺具体减重数值（"一周瘦10斤"违规）
+    - 动作教学需标注安全提示
+  examples:
+    good:
+      - title: "久坐党的骨盆前倾自救指南，每天10分钟，亲测有效"
+        opening: "坐办公室5年，小腹突出、腰疼、屁股越来越扁...去医院一查，骨盆前倾。物理治疗师教了我这套动作，坚持3周明显改善👇"
+    bad:
+      - title: "7天暴瘦20斤训练计划"
+        reason: "虚假承诺，平台会限流，也不负责任"
 
 xiaohongshu-career:
   platform: 小红书
   vertical: 职场
   verified: false
+  quality_tier: A
   audience: 22-35岁职场新人/中层，焦虑型成长需求
   formula: 职场痛点 + 实用方法 + 个人经历
   copy_style: 过来人口吻，干货密集，有共鸣感
@@ -253,14 +315,24 @@ xiaohongshu-career:
     - "#升职加薪"
     - "#时间管理"
     - "#副业"
+    - "#打工人"
   taboos:
     - 不贩卖焦虑
     - 不虚假承诺收入
+    - 不抄袭他人职场故事
+  examples:
+    good:
+      - title: "面试被问'期望薪资'怎么答？HR朋友教我的话术，直接多谈了3K"
+        opening: "上个月跳槽面了6家，前3家都在谈薪环节翻车😅 后来我HR朋友教了我一套话术，后3家全部拿到了高于预期的offer——"
+    bad:
+      - title: "职场干货分享"
+        reason: "标题零信息量，像PPT封面不像爆款笔记"
 
 xiaohongshu-travel:
   platform: 小红书
   vertical: 旅行
   verified: false
+  quality_tier: A
   audience: 20-40岁，喜欢旅游探索的年轻人
   formula: 美景实拍 + 实用攻略 + 费用清单
   copy_style: 攻略型，具体到交通/住宿/路线/花费
@@ -269,7 +341,7 @@ xiaohongshu-travel:
     height: 1440
     ratio: "3:4"
     style: 风景实拍，高饱和度，ins风
-  image_strategy: 实拍为主，AI做路线图/行程规划图
+  image_strategy: 实拍为主，AI做路线图/行程规划图；纯AI可用Nano生成旅行插画封面
   frequency: 周更2-3篇
   topics:
     - 城市攻略
@@ -287,14 +359,24 @@ xiaohongshu-travel:
     - "#穷游"
     - "#周末去哪儿"
     - "#拍照机位"
+    - "#旅游打卡"
   taboos:
     - 不虚构行程
-    - 价格信息需时效标注
+    - 价格信息需时效标注（"2026年4月价格"）
+    - 不美化危险景点
+  examples:
+    good:
+      - title: "人均500！周末2天玩转重庆，本地人带路版攻略"
+        opening: "去年在重庆住了2个月，总结出这条本地人才知道的路线🔥 避开所有网红坑，人均500吃住玩全搞定，跟着走就行——"
+    bad:
+      - title: "重庆旅游攻略"
+        reason: "没有差异化，搜索结果里一万篇同名笔记"
 
 xiaohongshu-digital:
   platform: 小红书
   vertical: 数码
   verified: false
+  quality_tier: A
   audience: 18-35岁男性为主，科技爱好者
   formula: 产品测评 + 参数对比 + 购买建议
   copy_style: 专业客观，数据说话，不吹不黑
@@ -303,7 +385,7 @@ xiaohongshu-digital:
     height: 1440
     ratio: "3:4"
     style: 产品实拍/渲染图，暗色调科技风
-  image_strategy: 实拍为主，AI做参数对比卡片
+  image_strategy: 实拍为主，AI做参数对比卡片；纯AI可用HTML渲染对比表格
   frequency: 周更2-3篇
   topics:
     - 手机测评
@@ -322,13 +404,22 @@ xiaohongshu-digital:
     - "#智能家居"
     - "#性价比"
   taboos:
-    - 不恰饭不标注
+    - 恰饭内容必须标注
     - 参数必须准确可查证
+    - 不做无依据排名
+  examples:
+    good:
+      - title: "2026年千元耳机横评：5款ANC降噪实测，第3款真香"
+        opening: "花了3000多买了5款千元档降噪耳机，地铁、办公室、咖啡馆3个场景实测。结论先放：综合体验第1名不是你以为的那个👇"
+    bad:
+      - title: "这款耳机太好用了推荐！"
+        reason: "软广感拉满，没有测评数据，用户不信"
 
 xiaohongshu-home:
   platform: 小红书
   vertical: 家居
   verified: false
+  quality_tier: A
   audience: 25-40岁，新房装修/租房改造人群
   formula: 改造前后对比 + 好物清单 + 避坑指南
   copy_style: 真实体验型，具体到品牌/价格/购买渠道
@@ -337,7 +428,7 @@ xiaohongshu-home:
     height: 1440
     ratio: "3:4"
     style: 实拍改造对比，温馨风格
-  image_strategy: 实拍为主，AI做改造前后对比图
+  image_strategy: 实拍为主，AI做改造前后对比图；纯AI可用Nano生成家居氛围图
   frequency: 周更2-3篇
   topics:
     - 房间改造
@@ -357,7 +448,15 @@ xiaohongshu-home:
     - "#装修避坑"
   taboos:
     - 价格需实时更新
-    - 不虚假改造效果
+    - 不虚假改造效果（P图过度）
+    - 安全相关改造需提示找专业人士
+  examples:
+    good:
+      - title: "花800块改造出租屋客厅，房东看了都想涨房租"
+        opening: "住了2年的老破小出租屋，周末花800块改了一下客厅...说实话改完我自己都不想搬走了😂 所有好物链接放文末，照着买就行——"
+    bad:
+      - title: "我的家居分享"
+        reason: "没有改造故事没有具体金额，像发朋友圈"
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 公众号赛道
@@ -367,6 +466,7 @@ wechat-metaphysics:
   platform: 公众号
   vertical: 玄学命理
   verified: true
+  quality_tier: A
   audience: 35-60岁，对命理/风水/佛教文化感兴趣的中老年群体
   formula: 悬念标题 + 命理知识 + 运势解读 + 行动建议
   copy_style: 专业但有温度，引经据典，3000-5000字长文
@@ -390,13 +490,22 @@ wechat-metaphysics:
   tags: []  # 公众号无标签，依赖标题关键词
   publish_method: 浏览器模拟登录绕过IPv6白名单限制，自动发布到草稿箱
   taboos:
-    - 不做具体预言
+    - 不做具体预言（"你明天会出车祸"）
     - 不涉及封建迷信红线话题
+    - 不恐吓读者
+  examples:
+    good:
+      - title: "2026年下半年，这3个生肖要注意：财运虽旺，但有一劫"
+        opening: "进入丙午年下半年，天干丙火与地支午火重叠，火气极旺。对于某些生肖来说，这既是财运爆发的窗口，也暗藏一个不可忽视的坎..."
+    bad:
+      - title: "十二生肖运势大全"
+        reason: "标题太平，没有悬念，不如聚焦到具体几个生肖制造好奇心"
 
 wechat-business-tech:
   platform: 公众号
   vertical: 商业/科技
   verified: false
+  quality_tier: A
   audience: 25-45岁职场人、创业者、科技爱好者
   formula: 热点切入 + 深度分析 + 独家观点
   copy_style: 专业深度，逻辑严密，5000-8000字长文
@@ -420,11 +529,20 @@ wechat-business-tech:
   taboos:
     - 数据必须有出处
     - 不做无依据预测
+    - 涉及上市公司需免责声明
+  examples:
+    good:
+      - title: "OpenAI 的 AGI 时间表为什么又推迟了？内部三条路线的博弈"
+        opening: "上周 OpenAI 内部全员会上，Sam Altman 罕见地没有提 AGI 时间表。这和半年前「2027年实现AGI」的豪言形成鲜明反差。发生了什么？"
+    bad:
+      - title: "AI行业最新动态"
+        reason: "像新闻简报标题，没有独家视角和观点锐度"
 
 wechat-education:
   platform: 公众号
   vertical: 教育/成长
   verified: false
+  quality_tier: A
   audience: 25-45岁家长、终身学习者
   formula: 教育理念 + 实操方法 + 真实案例
   copy_style: 专家+朋友双重口吻，有温度有深度，3000-5000字
@@ -449,6 +567,14 @@ wechat-education:
   taboos:
     - 不贩卖教育焦虑
     - 不承诺学习效果
+    - 不抄袭教育理论不注明出处
+  examples:
+    good:
+      - title: "清华妈妈的'反鸡娃'实验：停掉所有课外班后，孩子成绩反而上升了"
+        opening: "去年9月，我做了一个在家长群里被当成异类的决定——把女儿所有课外班全停了。不是因为没钱，而是因为我发现了一个残酷的事实..."
+    bad:
+      - title: "如何培养优秀的孩子"
+        reason: "太泛太教科书，没有具体故事和冲突感"
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 视频号赛道
@@ -458,15 +584,16 @@ shipinhao-emotional:
   platform: 视频号
   vertical: 中老年情感
   verified: false
+  quality_tier: B
   audience: 45-65岁，情感需求强，喜欢共鸣和转发
   formula: 情感共鸣开场 + 人生感悟 + 金句结尾
-  copy_style: 温暖、接地气、有共鸣，短句为主
+  copy_style: 温暖、接地气、有共鸣，短句为主，150-300字口播稿
   image_spec:
     width: 1080
     height: 1920
     ratio: "9:16"
     style: 温暖色调，风景/家庭/文字卡片
-  image_strategy: 视频为主，AI做金句卡片封面
+  image_strategy: 视频为主，AI做金句卡片封面；图文模式可用Nano生成温馨风景+文字叠加
   frequency: 日更
   topics:
     - 亲情故事
@@ -482,20 +609,32 @@ shipinhao-emotional:
   taboos:
     - 不消费老年人情感
     - 不推荐未验证保健品
+    - 不制造代际对立
+  examples:
+    good:
+      - title: "人到六十才明白：最大的福气不是有钱，是身边还有人陪你吃饭"
+        opening: "昨天去公园，看见一个老大爷一个人坐在长椅上吃盒饭。突然就想起了我爸说过的一句话..."
+    bad:
+      - title: "人生感悟分享"
+        reason: "标题没有画面感没有情感钩子，中老年用户不会点"
+  # ⚠️ quality_tier: B 说明：
+  # 视频号赛道以视频为主，纯图文模式的生图策略和文案结构需要实际验证。
+  # 口播稿的节奏感和配乐选择无法通过知识库完全覆盖。
 
 shipinhao-knowledge:
   platform: 视频号
   vertical: 知识口播
   verified: false
+  quality_tier: B
   audience: 35-60岁，喜欢深度内容
   formula: 观点输出 + 案例支撑 + 金句结尾
-  copy_style: 沉稳专业，短句为主，有分量感
+  copy_style: 沉稳专业，短句为主，有分量感，200-400字口播稿
   image_spec:
     width: 1080
     height: 1920
     ratio: "9:16"
     style: 真人出镜，简洁背景
-  image_strategy: 真人出镜为主，AI做知识点卡片
+  image_strategy: 真人出镜为主，AI做知识点卡片；纯图文可用HTML渲染知识点长图
   frequency: 日更
   topics:
     - 商业思维
@@ -510,6 +649,17 @@ shipinhao-knowledge:
   taboos:
     - 不传播未经核实信息
     - 历史内容需标注出处
+    - 不做伪专家人设
+  examples:
+    good:
+      - title: "为什么越忙的人越穷？曾国藩200年前就给出了答案"
+        opening: "曾国藩有句话：'凡事留余地，雅量能容人。'很多人把这当鸡汤，但其实这是一套完整的时间管理哲学——"
+    bad:
+      - title: "每日知识分享"
+        reason: "像课堂点名不像爆款视频，缺悬念和反差"
+  # ⚠️ quality_tier: B 说明：
+  # 知识口播高度依赖出镜人设和表达节奏，纯文字流水线只能覆盖选题+文案环节。
+  # 视频剪辑、配乐、字幕样式需要人工把控。
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 抖音赛道
@@ -519,6 +669,7 @@ douyin-knowledge-talk:
   platform: 抖音
   vertical: 知识口播
   verified: false
+  quality_tier: B
   audience: 18-40岁，碎片化学习需求
   formula: 反常识开场 + 干货输出 + 互动结尾
   copy_style: 快节奏、高密度、口语化，1-3分钟口播稿
@@ -527,7 +678,7 @@ douyin-knowledge-talk:
     height: 1920
     ratio: "9:16"
     style: 大字报/信息卡片风格
-  image_strategy: 视频为主，AI做知识点卡片封面
+  image_strategy: 视频为主，AI做知识点卡片封面；纯图文可用HTML渲染信息卡
   frequency: 日更或一日多更
   topics:
     - 行业揭秘
@@ -541,12 +692,24 @@ douyin-knowledge-talk:
   tags: []
   taboos:
     - 不传播未验证信息
-    - 不做标题党
+    - 不做标题党（抖音会降权）
+    - 不抄袭其他创作者口播稿
+  examples:
+    good:
+      - title: "月薪3万的人从来不说这3句话，第2句90%的人天天说"
+        opening: "我观察了身边所有年薪百万的朋友，发现他们有一个共同点——从来不说这3句话。第一句..."
+    bad:
+      - title: "3个提升认知的方法"
+        reason: "标题太正经像公开课，抖音用户滑走速度0.5秒"
+  # ⚠️ quality_tier: B 说明：
+  # 抖音口播的核心是前3秒留人率，这高度依赖表达方式和剪辑节奏。
+  # 知识库只能覆盖选题+文案，投流策略和评论区运营需要额外经验。
 
 douyin-pet:
   platform: 抖音
   vertical: 宠物
   verified: false
+  quality_tier: B
   audience: 全年龄段宠物爱好者
   formula: 萌宠搞笑瞬间 + 配音/字幕 + 情感共鸣
   copy_style: 短平快，字幕为主，15-60秒视频
@@ -555,7 +718,7 @@ douyin-pet:
     height: 1920
     ratio: "9:16"
     style: 宠物特写，趣味字幕
-  image_strategy: 视频为主，AI做萌宠表情包封面
+  image_strategy: 视频为主，AI做萌宠表情包封面；纯图文可用Nano生成Q版宠物+搞笑文字
   frequency: 日更或一日多更
   topics:
     - 萌宠搞笑
@@ -570,20 +733,32 @@ douyin-pet:
   taboos:
     - 不虐待动物博眼球
     - 不鼓励冲动养宠
+    - 不用危险道具逗宠物
+  examples:
+    good:
+      - title: "给我家哈士奇看了它小时候的照片，它的反应我笑了一天"
+        opening: "(视频) 字幕：'宝贝你看，这是你小时候' → 哈士奇歪头看照片 → 突然嚎叫"
+    bad:
+      - title: "我家狗狗"
+        reason: "零信息零悬念，抖音0.3秒就被滑走"
+  # ⚠️ quality_tier: B 说明：
+  # 抖音宠物赛道高度依赖真实视频素材，纯AI内容很难做出互动感。
+  # 知识库可覆盖选题和配音文案，但视频拍摄和剪辑节奏需真人操作。
 
 douyin-fitness:
   platform: 抖音
   vertical: 健身
   verified: false
+  quality_tier: B
   audience: 18-40岁，减脂增肌需求人群
   formula: 动作演示 + 效果展示 + 跟练引导
-  copy_style: 教练口吻，节奏快，指令清晰
+  copy_style: 教练口吻，节奏快，指令清晰，30秒-3分钟
   image_spec:
     width: 1080
     height: 1920
     ratio: "9:16"
     style: 真人示范，动作分解
-  image_strategy: 视频为主，AI做动作要点卡片
+  image_strategy: 视频为主，AI做动作要点卡片；纯图文可用HTML渲染训练计划+动作分解图
   frequency: 日更
   topics:
     - 居家跟练
@@ -599,3 +774,14 @@ douyin-fitness:
   taboos:
     - 不鼓励过度训练
     - 动作需标注安全提示
+    - 不承诺具体减重效果
+  examples:
+    good:
+      - title: "不去健身房！每天8分钟站着就能瘦肚子，跟我一起练"
+        opening: "(视频) 教练面对镜头：'不需要任何器械，站着就能做，跟我来——第一个动作，开合跳变体...'"
+    bad:
+      - title: "健身教程分享"
+        reason: "没有利益点没有场景感，用户不知道能解决什么问题"
+  # ⚠️ quality_tier: B 说明：
+  # 健身赛道核心是真人动作示范视频，纯文字/图片流水线覆盖度有限。
+  # 知识库可覆盖选题+训练计划文案，但视频拍摄和后期需要人工。

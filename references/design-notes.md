@@ -30,28 +30,32 @@
 
 ## 已有赛道速查
 
-| 平台 | 垂类 | Skill 名 | 验证状态 |
-|------|------|---------|---------| 
-| 小红书 | 育儿 | xiaohongshu-parenting | ✅ 已验证 |
-| 小红书 | AI 工具/变现 | xiaohongshu-ai-tools | ✅ 已验证 |
-| 公众号 | 玄学命理 | wechat-metaphysics | ✅ 已验证 |
-| 小红书 | 穿搭 | xiaohongshu-fashion | 🔶 知识库理论 |
-| 小红书 | 美食 | xiaohongshu-food | 🔶 知识库理论 |
-| 小红书 | 宠物 | xiaohongshu-pet | 🔶 知识库理论 |
-| 小红书 | 健身 | xiaohongshu-fitness | 🔶 知识库理论 |
-| 小红书 | 职场 | xiaohongshu-career | 🔶 知识库理论 |
-| 小红书 | 旅行 | xiaohongshu-travel | 🔶 知识库理论 |
-| 小红书 | 数码 | xiaohongshu-digital | 🔶 知识库理论 |
-| 小红书 | 家居 | xiaohongshu-home | 🔶 知识库理论 |
-| 公众号 | 商业/科技 | wechat-business-tech | 🔶 知识库理论 |
-| 公众号 | 教育/成长 | wechat-education | 🔶 知识库理论 |
-| 视频号 | 中老年情感 | shipinhao-emotional | 🔶 知识库理论 |
-| 视频号 | 知识口播 | shipinhao-knowledge | 🔶 知识库理论 |
-| 抖音 | 知识口播 | douyin-knowledge-talk | 🔶 知识库理论 |
-| 抖音 | 宠物 | douyin-pet | 🔶 知识库理论 |
-| 抖音 | 健身 | douyin-fitness | 🔶 知识库理论 |
+| 平台 | 垂类 | Skill 名 | 验证状态 | 质量等级 |
+|------|------|---------|---------|---------| 
+| 小红书 | 育儿 | xiaohongshu-parenting | ✅ 已验证 | A |
+| 小红书 | AI 工具/变现 | xiaohongshu-ai-tools | ✅ 已验证 | A |
+| 公众号 | 玄学命理 | wechat-metaphysics | ✅ 已验证 | A |
+| 小红书 | 穿搭 | xiaohongshu-fashion | 🔶 未验证 | A |
+| 小红书 | 美食 | xiaohongshu-food | 🔶 未验证 | A |
+| 小红书 | 宠物 | xiaohongshu-pet | 🔶 未验证 | A |
+| 小红书 | 健身 | xiaohongshu-fitness | 🔶 未验证 | A |
+| 小红书 | 职场 | xiaohongshu-career | 🔶 未验证 | A |
+| 小红书 | 旅行 | xiaohongshu-travel | 🔶 未验证 | A |
+| 小红书 | 数码 | xiaohongshu-digital | 🔶 未验证 | A |
+| 小红书 | 家居 | xiaohongshu-home | 🔶 未验证 | A |
+| 公众号 | 商业/科技 | wechat-business-tech | 🔶 未验证 | A |
+| 公众号 | 教育/成长 | wechat-education | 🔶 未验证 | A |
+| 视频号 | 中老年情感 | shipinhao-emotional | 🔶 未验证 | B ⚠️ |
+| 视频号 | 知识口播 | shipinhao-knowledge | 🔶 未验证 | B ⚠️ |
+| 抖音 | 知识口播 | douyin-knowledge-talk | 🔶 未验证 | B ⚠️ |
+| 抖音 | 宠物 | douyin-pet | 🔶 未验证 | B ⚠️ |
+| 抖音 | 健身 | douyin-fitness | 🔶 未验证 | B ⚠️ |
 
-> 当某赛道首次完整跑通 Phase 2.5 测试后，将 YAML 中 `verified` 改为 `true`，速查表更新为 ✅。
+质量等级说明：
+- **A 级**：内容完整（含正反示例、生图策略、禁忌清单），可直接用于生成流水线
+- **B 级**：骨架级，视频赛道依赖真人拍摄/剪辑，纯图文流水线覆盖度有限，需人工校准
+
+> 当某赛道首次完整跑通 Phase 2.5 测试后，将 `references/track-knowledge-base.yaml` 中对应赛道的 `verified` 改为 `true`，速查表同步更新为 ✅。
 
 ## 反馈记忆机制
 

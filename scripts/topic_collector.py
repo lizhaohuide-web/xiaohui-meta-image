@@ -3,10 +3,11 @@
 内容流水线工厂 - 选题采集脚本
 从多个数据源采集热点话题，按赛道过滤和排序，输出候选选题列表。
 
-数据源:
+数据源（按优先级）:
   1. 6551 API - Twitter/X 热门推文 (需 TWITTER_TOKEN)
   2. 6551 API - OpenNews 新闻聚合 (需 OPENNEWS_TOKEN)
-  3. Web Search - 通用网络搜索 (兜底)
+  3. Tavily Search API - 网络搜索 (需 TAVILY_API_KEY, 免费 1000次/月)
+  如果 1+2 全部失败且 TAVILY_API_KEY 已配置，自动降级到 Tavily 兜底。
 
 用法:
   # 按赛道采集选题
@@ -18,12 +19,16 @@
   # 指定数据源
   python3 topic_collector.py --track wechat-metaphysics --source twitter,news
 
+  # 只用 Tavily
+  python3 topic_collector.py --track xiaohongshu-ai-tools --source tavily
+
   # 输出 JSON 格式（方便流水线串联）
   python3 topic_collector.py --track xiaohongshu-ai-tools --format json
 
 环境变量:
-  TWITTER_TOKEN  - 6551 Twitter API token
-  OPENNEWS_TOKEN - 6551 News API token
+  TWITTER_TOKEN   - 6551 Twitter API token
+  OPENNEWS_TOKEN  - 6551 News API token
+  TAVILY_API_KEY  - Tavily Search API key (申请: https://tavily.com)
 """
 import argparse
 import json
@@ -31,12 +36,14 @@ import os
 import sys
 import urllib.request
 import urllib.error
+import urllib.parse
 from datetime import datetime
 
 # ── 配置 ──────────────────────────────────────────
 API_BASE = "https://ai.6551.io"
 TWITTER_TOKEN = os.environ.get("TWITTER_TOKEN", "")
 OPENNEWS_TOKEN = os.environ.get("OPENNEWS_TOKEN", "")
+TAVILY_API_KEY = os.environ.get("TAVILY_API_KEY", "")
 
 # 赛道 → 搜索关键词映射
 TRACK_KEYWORDS = {
@@ -188,6 +195,64 @@ def search_news(keywords, limit=10):
     return results
 
 
+# ── Tavily 搜索（第三级 fallback）─────────────────
+def search_tavily(keywords, limit=10):
+    """
+    通过 Tavily Search API 搜索热点内容。
+    需要用户自行申请 API Key: https://tavily.com
+    设置环境变量 TAVILY_API_KEY 即可使用。
+    """
+    if not TAVILY_API_KEY:
+        print("[Tavily] ⚠️ TAVILY_API_KEY 未设置，跳过")
+        print("[Tavily] 💡 申请地址: https://tavily.com (免费额度 1000次/月)")
+        return []
+
+    results = []
+    query = " ".join(keywords[:5])
+
+    try:
+        payload = json.dumps({
+            "api_key": TAVILY_API_KEY,
+            "query": query,
+            "search_depth": "basic",
+            "max_results": limit,
+            "include_answer": False
+        }).encode("utf-8")
+
+        req = urllib.request.Request(
+            "https://api.tavily.com/search",
+            data=payload,
+            headers={"Content-Type": "application/json"},
+            method="POST"
+        )
+
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+
+        for item in data.get("results", [])[:limit]:
+            title = item.get("title", "")
+            content = item.get("content", "")
+            url = item.get("url", "")
+            score = item.get("score", 0)
+
+            results.append({
+                "source": "tavily",
+                "title": title[:80] + ("..." if len(title) > 80 else ""),
+                "content": content[:500] if content else title,
+                "author": urllib.parse.urlparse(url).netloc if url else "unknown",
+                "engagement": int(score * 100),  # 归一化为 0-100
+                "url": url,
+                "collected_at": datetime.now().isoformat()
+            })
+
+        print(f"[Tavily] ✅ 采集到 {len(results)} 条")
+
+    except Exception as e:
+        print(f"[Tavily] ❌ 失败: {e}")
+
+    return results
+
+
 # ── 选题排序与去重 ────────────────────────────────
 def deduplicate(topics):
     """基于标题相似度去重"""
@@ -249,7 +314,7 @@ def collect(track=None, keywords=None, sources=None, limit=10):
         return []
 
     if sources is None:
-        sources = ["twitter", "news"]
+        sources = ["twitter", "news", "tavily"]
 
     print(f"🔍 采集关键词: {', '.join(kw)}")
     print(f"📡 数据源: {', '.join(sources)}")
@@ -263,6 +328,14 @@ def collect(track=None, keywords=None, sources=None, limit=10):
     if "news" in sources:
         all_topics.extend(search_news(kw, limit))
 
+    if "tavily" in sources:
+        all_topics.extend(search_tavily(kw, limit))
+
+    # 如果主数据源全部失败，自动尝试 Tavily 兜底
+    if not all_topics and "tavily" not in sources and TAVILY_API_KEY:
+        print("\n⚠️ 主数据源全部为空，自动降级到 Tavily 搜索...")
+        all_topics.extend(search_tavily(kw, limit))
+
     # 去重 + 排序
     all_topics = deduplicate(all_topics)
     all_topics = rank_topics(all_topics)
@@ -274,8 +347,8 @@ def main():
     parser = argparse.ArgumentParser(description="内容流水线工厂 - 选题采集")
     parser.add_argument("--track", help="赛道名 (如 xiaohongshu-parenting)")
     parser.add_argument("--keywords", help="自定义关键词，逗号分隔")
-    parser.add_argument("--source", default="twitter,news",
-                        help="数据源，逗号分隔 (默认: twitter,news)")
+    parser.add_argument("--source", default="twitter,news,tavily",
+                        help="数据源，逗号分隔 (默认: twitter,news,tavily)")
     parser.add_argument("--limit", type=int, default=10, help="采集数量 (默认: 10)")
     parser.add_argument("--format", choices=["text", "json"], default="text",
                         help="输出格式 (默认: text)")
